@@ -22,7 +22,7 @@ get_next_backoff() {
 write_ecr_creds
 while [ $? -ne 0 ]; do
   get_next_backoff
-  echo "AWS get creds failed, backing off for ${CURRENT_FIB_NUM}s"
+  echo $(date) "AWS get creds failed, backing off for ${CURRENT_FIB_NUM}s"
   sleep $CURRENT_FIB_NUM
   write_ecr_creds
 done
@@ -59,4 +59,5 @@ for secret_dir in /docker-secrets/*/; do
 done
 
 cp /tmp/combined_creds /docker-creds/${DOCKER_CREDS_FILE_NAME}
-echo "Wrote docker auth config to /docker-creds/${DOCKER_CREDS_FILE_NAME}"
+
+echo $(date) "Wrote docker auth config to /docker-creds/${DOCKER_CREDS_FILE_NAME}"
